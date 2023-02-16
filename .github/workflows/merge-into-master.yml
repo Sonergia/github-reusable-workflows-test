@@ -8,11 +8,15 @@ jobs:
     name: Merge '${{ github.ref }}' into master
     runs-on: ubuntu-latest
     steps:
-      - name: Check if is tag
-        run: echo "::set-output name=result::${{ startsWith(inputs.ref, 'refs/tags/') }}"
-        shell: pwsh
-        
+      - name: Check Tag
+        id: check-tag
+        run: |
+          if [[ ${{ github.ref }} =~ ^refs/tags/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "match=true" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Merge branch
+        if: steps.check-tag.outputs.match == 'true'
         uses: julbme/gh-action-merge-branch@v1
         with:
           from: ${{ github.ref }}
