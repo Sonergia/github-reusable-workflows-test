@@ -2,6 +2,11 @@ name: Merge tag or branch into master
 
 on:
   workflow_call:
+  
+    secrets:
+      access-token:
+        description: 'A token passed from the caller workflow'
+        required: false
 
 jobs:
   merge:
@@ -26,4 +31,4 @@ jobs:
           to: master
           message: Merge ${{ github.ref }} into master
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_MANAGERS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.access-token }}
