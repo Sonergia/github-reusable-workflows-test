@@ -3,7 +3,7 @@ name: Merge tag or branch into master
 on: [workflow_dispatch]
 
 jobs:
-  build:
+  merge:
     name: Merge '${{ github.ref }}' into master
     runs-on: ubuntu-latest
     steps:
