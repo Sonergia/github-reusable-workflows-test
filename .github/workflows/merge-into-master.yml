@@ -1,0 +1,17 @@
+name: Merge tag or branch into master
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    name: Merge '${{ github.ref }}' into master
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge branch
+        uses: julbme/gh-action-merge-branch@v1
+        with:
+          from: ${{ github.ref }}
+          to: master
+          message: Merge ${{ github.ref }} into master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_MANAGERS_TOKEN }}
